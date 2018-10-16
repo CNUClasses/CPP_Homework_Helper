@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../BlackBoard_zip_extractor/.idea/BlackBoard_zip_extractor.iml" filepath="$PROJECT_DIR$/../BlackBoard_zip_extractor/.idea/BlackBoard_zip_extractor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CPP_Homework_Helper.iml" filepath="$PROJECT_DIR$/.idea/CPP_Homework_Helper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Demo_commandLine_util_call/.idea/Demo_commandLine_util_call.iml" filepath="$PROJECT_DIR$/../Demo_commandLine_util_call/.idea/Demo_commandLine_util_call.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../PyTorch/.idea/PyTorch.iml" filepath="$PROJECT_DIR$/../PyTorch/.idea/PyTorch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Python_tutorials/.idea/Python_tutorials.iml" filepath="$PROJECT_DIR$/../Python_tutorials/.idea/Python_tutorials.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SunSpot/.idea/SunSpot.iml" filepath="$PROJECT_DIR$/../SunSpot/.idea/SunSpot.iml" />
+      <module fileurl="file://$USER_HOME$/fastAI2/fastai/courses/ml1/fastai/.idea/fastai.iml" filepath="$USER_HOME$/fastAI2/fastai/courses/ml1/fastai/.idea/fastai.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../keras_embeddings/.idea/keras_embeddings.iml" filepath="$PROJECT_DIR$/../keras_embeddings/.idea/keras_embeddings.iml" />
+    </modules>
+  </component>
+</project>
