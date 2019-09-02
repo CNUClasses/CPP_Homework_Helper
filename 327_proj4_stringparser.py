@@ -3,9 +3,17 @@ from glob import glob
 import os
 import subprocess
 
+'''
+NOTE: Change test.cpp 
+TEST_STRING, TEST_STRING_NO_END_TAG, TEST_STRING_NO_START_TAG  to have <to1> and </to1> tags!!!!!!!!!
+
+'''
+
+
 # the parent directory where I'm running the eclipse C++ project
 # dir_cpp_files = "/home/keith/eclipse-workspace/Proj3_Library_Vector_SOLUTION/library/"
 eclipse_workspace_dir = "/home/keith/git/"
+
 eclipse_FileIO = eclipse_workspace_dir + "327_proj3_fileIO/"
 eclipse_stringparser = eclipse_workspace_dir + "327_proj3_stringparser/"
 eclipse_327_proj3_test = eclipse_workspace_dir + "327_proj3_test/src/"
@@ -13,14 +21,18 @@ eclipse_project_dir = eclipse_workspace_dir + "327_proj3_test/"
 output_file = eclipse_workspace_dir + "327_proj3_test/output/"
 
 # here are the command arguments
-cmd_line_params = " './data/testdata_full.txt' '<to>' '</to>' './output/outfile1.txt'"
+cmd_line_params = " './data/testdata_full.txt' '<to1>' '</to1>' './output/outfile1.txt'"
 
 # CHANGE THESE FILES
-# where_student_files_are_dir = "/home/keith/Desktop/327_projects/327proj4/s18/"
-where_student_files_are_dir =   "/home/keith/Desktop/327_projects/327proj4/s18problems/"
-script_output_results = "./stdoutCs18-Proj4.txt"
-DELIM_WITH_STUDENTID=2
+# where_student_files_are_dir = "/home/keith/Desktop/327_projects/327_proj4_stringParser/s19/"s19p270s
+where_student_files_are_dir = "/home/keith/Desktop/327_projects/327_proj4_stringParser/s19p270s/"
 
+# where_student_files_are_dir =   "/home/keith/Desktop/327_projects/327proj4/s18problems/"
+script_output_results = "./stdoutCf18-Proj4.txt"
+
+# script_output_results = "./stdoutCf18-Proj4.txt"
+DELIM_WITH_STUDENTID=4
+# DELIM_WITH_STUDENTID=1
 tmpdir = os.path.join(where_student_files_are_dir,"*.cpp")
 filelist = glob(tmpdir )
 filelist.sort()
@@ -40,6 +52,7 @@ studentids=set()
 for file in filelist:
      delims = file.split("_")
      studentids.add(delims[DELIM_WITH_STUDENTID])
+studentids = sorted(studentids)
 
 # remove stdout.txt here
 # cmds1 = "rm ./" + script_output_results
@@ -75,6 +88,9 @@ for id in studentids:
     cmds1 = "cd " + output_file + ";rm *.txt"
     process = subprocess.Popen(cmds1, shell=True, stdout=out, stderr=out);process.wait()
 
+
+
+
     #copy in 3 files
     cmds = "cp \"" + file_fileIO + "\"  \"" + eclipse_FileIO + "FileIO.cpp\""
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
@@ -89,6 +105,9 @@ for id in studentids:
         cmds = "cp \"" + file_327_proj3_test + "\"  \"" + eclipse_327_proj3_test + "327_proj3_test_student\""
         process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
         process.wait()
+
+
+
 
     #build the libraries first then the tester
     clean_and_build(eclipse_FileIO)

@@ -4,13 +4,13 @@ import os
 import subprocess
 
 # the parent directory where I'm running the eclipse C++ project
-dir_prog = "/home/keith/eclipse-workspace/Proj1_410_solution/"
+dir_prog = "/home/keith/eclipse-workspace_MESSED_UP/Proj1_410_solution/"
 
 
 # dir_joblist = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/joblist/"
 # eclipse_project_dir = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/"
 # eclipse_exec = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/Debug/Proj2_410_queues_SOLUTION"
-where_student_files_are_dir = "/home/keith/Desktop/410/proj1/18F/broken/"
+where_student_files_are_dir = "/home/keith/Desktop/410/proj1/s19/c2messedup/"
 script_output_results = "410F_Proj1.txt"
 
 filelist = glob(where_student_files_are_dir + "*.cpp")

@@ -5,17 +5,18 @@ import subprocess_tut
 import subprocess
 
 # the parent directory where I'm running the eclipse C++ project
-dir_cpp_files = "/home/keith/eclipse-workspace/410_project3_solution/src/"
+dir_cpp_files = "/home/keith/eclipse-workspace_MESSED_UP/410_project3_solution/src/"
 
-eclipse_project_dir = "/home/keith/eclipse-workspace/410_project3_solution/"
-eclipse_exec = "/home/keith/eclipse-workspace/410_project3_solution/Debug/410_project3_solution"
-where_student_files_are_dir = "/home/keith/Desktop/410/proj3/s18/2/"
+eclipse_project_dir = "/home/keith/workspace_MESSED_UP/410_project3_solution/"
+eclipse_exec = "/home/keith/workspace_MESSED_UP/410_project3_solution/Debug/410_project3_solution"
+where_student_files_are_dir = "/home/keith/Desktop/410/proj3/s19/s2/"
 
 
 script_output_results = "410_proj3.txt"
 
 tmpdir = os.path.join(where_student_files_are_dir,"*.*")
 filelist = glob(tmpdir )
+
 # filelist.sort()
 def getFile(id, name = "joblist"):
     for file in filelist:
@@ -106,7 +107,7 @@ for id in studentids:
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     stdout,stderr = process.communicate(student_id)
     process.wait()
-
+    pass
 
     # try:
     #     # wanna see its output with 2 few params?

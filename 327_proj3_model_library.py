@@ -4,15 +4,15 @@ import os
 import subprocess
 
 # the parent directory where I'm running the eclipse C++ project
-dir_cpp_files = "/home/keith/eclipse-workspace/Proj3_Library_Vector_SOLUTION/library/"
-eclipse_project_dir = "/home/keith/eclipse-workspace/Proj3_Library_Vector_SOLUTION/"
-output_file = "/home/keith/eclipse-workspace/Proj3_Library_Vector_SOLUTION/"
+dir_cpp_files = "/home/keith/eclipse-workspace_MESSED_UP/Proj3_Library_Vector_SOLUTION/library/"
+eclipse_project_dir = "/home/keith/eclipse-workspace_MESSED_UP/Proj3_Library_Vector_SOLUTION/"
+output_file = "/home/keith/eclipse-workspace_MESSED_UP/Proj3_Library_Vector_SOLUTION/"
 
 
 # CHANGE THESE FILES
-where_student_files_are_dir = "/home/keith/Desktop/327_projects/327proj3/f18_2/"
+where_student_files_are_dir = "/home/keith/Desktop/327_projects/327proj3/s19/"
 script_output_results = "out_327_proj3_2.txt"
-DELIM_WITH_STUDENTID=3
+DELIM_WITH_STUDENTID=2
 
 tmpdir = os.path.join(where_student_files_are_dir,"*.cpp")
 filelist = glob(tmpdir )
@@ -82,18 +82,18 @@ for id in studentids:
 
     #run the build in eclipse
     cmds = "cd " + eclipse_project_dir + ";cd ./Debug;make clean;make;"
+    # cmds = "cd " + eclipse_project_dir + ";make clean;make;"
+
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     process.wait()
 
     #run the process and capture its output
-    cmds = "cd ~/eclipse-workspace/Proj3_Library_Vector_SOLUTION;./Debug/Proj3_Library_Vector_SOLUTION "
+    cmds = "cd ~/eclipse-workspace_MESSED_UP/Proj3_Library_Vector_SOLUTION;./Debug/Proj3_Library_Vector_SOLUTION "
 
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     stdout,stderr = process.communicate(student_id)
     process.wait()
 
-
-    i=1
 
 out.close
 

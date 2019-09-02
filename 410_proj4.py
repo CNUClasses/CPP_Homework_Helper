@@ -7,18 +7,18 @@ import sys
 import logging
 
 # where the student files are
-where_student_files_are_dir = "/home/keith/Desktop/410/proj4/s18/c1/"
+where_student_files_are_dir = "/home/keith/Desktop/410/proj4/s19/s2/"
 # the parent directory where I'm running the eclipse C++ project
-eclipse_clean_dir = "/home/keith/eclipse-workspace/410_proj4_Solution/"
+eclipse_clean_dir = "/home/keith/eclipse-workspace_MESSED_UP/410_proj4_Solution/"
 
 # //where to copy all the student files
-baker_dir = "/home/keith/eclipse-workspace/410_proj4_Solution/baker/"
-waiter_dir = "/home/keith/eclipse-workspace/410_proj4_Solution/waiter/"
-logger_dir = "/home/keith/eclipse-workspace/410_proj4_Solution/logger/"
-script_output_results = "410_p4stdout.txt"
+baker_dir = "/home/keith/eclipse-workspace_MESSED_UP/410_proj4_Solution/baker/"
+waiter_dir = "/home/keith/eclipse-workspace_MESSED_UP/410_proj4_Solution/waiter/"
+logger_dir = "/home/keith/eclipse-workspace_MESSED_UP/410_proj4_Solution/logger/"
+script_output_results = "410_p4stdout_s19s1.txt"
 
 # make and clean here
-proj = "/home/keith/eclipse-workspace/410_proj4_Solution/"
+proj = "/home/keith/eclipse-workspace_MESSED_UP/410_proj4_Solution/"
 
 # expected files in submission
 baker = "Baker.cpp"  # will not copy to a cpp file so not compileable
@@ -87,12 +87,13 @@ for id in studentids:
     process.wait()
 
     # make_and_clean()
-    # clean_and_build(proj)
+    clean_and_build(proj)
 
     #run the process and capture its output
-    cmds = "cd "+ proj+ ";./Debug/410_proj4_Solution "
+    # cmds = "cd "+ proj+ ";./Debug/410_proj4_Solution "
     # process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     # stdout,stderr = process.communicate(student_id)
     # process.wait()
+    pass
 
 out.close

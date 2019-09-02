@@ -4,11 +4,11 @@ import os
 import subprocess
 
 # the parent directory where I'm running the eclipse C++ project
-dir_dispatcher = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/dispatcher/"
-dir_joblist = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/joblist/"
-eclipse_project_dir = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/"
-eclipse_exec = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/Debug/Proj2_410_queues_SOLUTION"
-where_student_files_are_dir = "/home/keith/Desktop/410/proj2/f18/"
+dir_dispatcher = "/home/keith/eclipse-workspace_MESSED_UP/Proj2_410_queues_SOLUTION/dispatcher/"
+dir_joblist = "/home/keith/eclipse-workspace_MESSED_UP/Proj2_410_queues_SOLUTION/joblist/"
+eclipse_project_dir = "/home/keith/eclipse-workspace_MESSED_UP/Proj2_410_queues_SOLUTION/"
+eclipse_exec = "/home/keith/eclipse-workspace_MESSED_UP/Proj2_410_queues_SOLUTION/Debug/Proj2_410_queues_SOLUTION"
+where_student_files_are_dir = "/home/keith/Desktop/410/proj2/s19/q/"
 
 
 script_output_results = "410_proj2.txt"
@@ -83,9 +83,9 @@ for id in studentids:
 
     # run plot_proceses.py to show resyults
     pass
-    cmds = "cd " + eclipse_project_dir + ";cd ./plotProcesses;python plot_processes.py"
-    process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
-    process.wait()
+    # cmds = "cd " + eclipse_project_dir + ";cd ./plotProcesses;python plot_processes.py"
+    # process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
+    # process.wait()
 
 
     # try:

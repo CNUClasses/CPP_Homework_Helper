@@ -2,29 +2,35 @@
 from glob import glob
 import os
 import subprocess
+import sys
 
-# the parent directory where I'm running the eclipse C++ project
-# eclipse_clean_dir = "/home/keith/eclipse-workspace/327_proj3_test/"
-#
-# /home/keith/eclipse-workspace/327_Proj4_Lib/includes
-# /home/keith/eclipse-workspace/327_Proj4/
+# CHANGE THESE
+where_student_files_are_dir = "/home/keith/Desktop/327_projects/327proj5_smalltalk/s19nocompile/"
+DELIM_WITH_STUDENTID=3
+efis = 5  #expected number of files to see
+script_output_results = "327_project4_scripts_smalltalk_s19.txt"
 
-# //where to copy all the student files
-eclipse_lib_dir= "/home/keith/eclipse-workspace/327_Proj5_Lib/"
-where_student_files_are_dir = "/home/keith/Desktop/327_projects/327proj4/s18/"
-script_output_results = "stdout_S18_327_P5.txt"
+# where to copy all the student files
+eclipse_lib_dir= "/home/keith/git/327_Proj5_Lib/"
+eclipse_proj_dir= "/home/keith/git/327_Proj5/"
 
-#make and clean here
-proj ="/home/keith/eclipse-workspace/327_Proj5/Debug"
-lib="/home/keith/eclipse-workspace/327_Proj5_Lib/Debug"
-def make_and_clean():
-    cmds = "cd " + lib + ";make clean;make;"
+def clean_and_build():
+    # clean
+    cmds = "cd " + eclipse_lib_dir + ";cd ./Debug;make clean;"
+    process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
+    process.wait()
+    cmds = "cd " + eclipse_proj_dir + ";cd ./Debug;make clean;"
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     process.wait()
 
-    cmds = "cd " + proj + ";make clean;make;"
+    # build
+    cmds = "cd " + eclipse_lib_dir + ";cd ./Debug;make;"
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     process.wait()
+    cmds = "cd " + eclipse_proj_dir + ";cd ./Debug;make;"
+    process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
+    process.wait()
+
 
 # expected files in submission
 proj4 = "327_Proj5" #will not copy to a cpp file so not compileable
@@ -34,7 +40,7 @@ stb = "Smalltalk_Brit.cpp"
 st = "Smalltalk.cpp"
 stade = "ST_American_DonutEnthusiest.cpp"
 
-efis = 6    # 6 for most
+   # 6 for most
 numb_efis_seen = 0
 student_id = ''
 
@@ -44,7 +50,6 @@ def remove_file(fn):
     cmds = "echo " + student_id + ";rm " + ftr
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     process.wait()
-
 
 def movefiles(stud_file, fn):
     global numb_efis_seen
@@ -61,16 +66,6 @@ def movefiles(stud_file, fn):
 
     # want to copy efis files and then pause to run diagnostics
     numb_efis_seen += 1
-    if (numb_efis_seen == efis):
-        make_and_clean()
-
-        # run the process and capture its output
-        cmds = "cd " + proj + ";./327_Proj5"
-        process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
-        stdout, stderr = process.communicate(student_id)
-        process.wait()
-        # got em all, pause for tests
-        # raw_input('     Press <ENTER> to continue')
 
 # get a list of student files
 filelist = glob(where_student_files_are_dir + "*.cpp")
@@ -79,59 +74,48 @@ filelist.sort()
 #redirect output
 out = open(script_output_results,"w")
 for file in filelist:
-    global numb_efis_seen
-
-    delimofinterest = 2
+    # numb_efis_seen
 
     delims = file.split("_")
-    if(student_id != delims[delimofinterest]):
+    if(student_id != delims[DELIM_WITH_STUDENTID]):
         if (numb_efis_seen !=efis  and len(student_id) !=0):
             print("   WARNING" + student_id + "not all files seen!")
-        student_id = delims[delimofinterest]
+        student_id = delims[DELIM_WITH_STUDENTID]
         numb_efis_seen = 0
         print("----------------------FOR_STUDENT_" + student_id + "--------------------------------")
 
-    if (functions in file):
+    if (functions.lower() in file.lower()):
         movefiles(file,functions)
-    elif (sta in file):
+    elif (sta.lower() in file.lower()):
         movefiles(file,sta)
-    elif (stb in file):
+    elif (stb.lower() in file.lower()):
         movefiles(file,stb)
-    elif (st in file):
+    elif (st.lower() in file.lower()):
         movefiles(file,st)
-    elif (stade in file):
+    elif (stade.lower() in file.lower()):
         movefiles(file,stade)
-    elif (proj4 in file):
-        movefiles(file,proj4)
-    elif (".txt" in file):
-        pass
     else:
         print( student_id + ": has bogus file "+file)
 
+    #if got all 5 then compile and run
+    if (numb_efis_seen == efis):
+        out1 = open(script_output_results, "a")
+        out1.write("----------------------START STUDENT_" + student_id + "--------------------------------\n\n\n")
+        out1.close()
 
-    # # copy in student files
-    # cmds = "cp \"" + file + "\"  \"" + stringparser_FQN+ "\""
-    # process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
-    # process.wait()
-    #
-    # #you can comment out the following lines, set a breakpoint on above process.wait
-    # # then step through this program to breakpoint
-    # # and then debug student code in eclipse
-    # # cmds = "cd " + eclipse_clean_dir + ";cd ./Debug;make clean;make all;"
-    # # process = subprocess.Popen(cmds, shell=True, stdout=out,stderr=out)
-    # # process.wait()
+        clean_and_build()
 
-        pass
+        # run the process and capture its output
+        cmds = "cd " + eclipse_proj_dir + ";cd ./Debug; ./327_Proj5"
+        process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
+        stdout, stderr = process.communicate(student_id)
+        process.wait()
 
-    # try:
-    #     # wanna see its output with 2 few params?
-    #     # subprocess.check_output([self.cmd_file, self.data_file, passfile])
-    #     print(subprocess.check_output([eclipse_exec]))
-    # except subprocess.CalledProcessError as err:
-    #     print("Problems...", "Utility returned:" + str(err.returncode) + " " + err.output)
-    # else:
-    #     print("No worries", "SUCCESS")
+        out1 = open(script_output_results, "a")
+        out1.write("----------------------END STUDENT_" + student_id + "--------------------------------\n\n\n")
+        out1.close()
 
-
+        # got em all, pause for tests
+        # raw_input('     Press <ENTER> to continue')
 out.close
 

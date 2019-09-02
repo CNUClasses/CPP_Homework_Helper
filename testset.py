@@ -1,3 +1,11 @@
+tmp=".k/p/t"
+len1 = len(tmp.split("/"))
+
+
+tmp=".k/p/t/q"
+len1 = len(tmp.split("/"))
+
+
 myset = set()
 
 myset.update("1")
