@@ -2,9 +2,9 @@
 from glob import glob
 import os
 import subprocess
-from subprocess import Popen, PIPE, STDOUT
+import string
 
-where_blackboard_files_are_dir = "/home/keith/Desktop/Student Projects/327_projects/327proj1/f19/s1/"
+where_blackboard_files_are_dir = "/home/keith/Desktop/student_projects/327_projects/327proj1/f19/tmp/"
 where_student_files_go = where_blackboard_files_are_dir + "repos/"
 
 script_output_results = "327_Proj1.txt"
@@ -27,6 +27,10 @@ def make_student_dir(id,base_path=where_student_files_go):
     except FileExistsError:
         print("OHNO " +str(id) +"directory exists! Shennanigans possible!")
         pass
+    except Exception as ex:
+        #handle all other exceptions
+        print("OHNO " + str(id) + " Exception "+ ex)
+
     return pth
 
 def getfile(id, name = submission_filename):
@@ -45,6 +49,7 @@ def getfile(id, name = submission_filename):
 def run_cmd(cmd, pth):
     p = subprocess.Popen(cmd, cwd=pth, shell=True, stdout=out, stderr=out)
     grep_stdout = p.communicate()
+    pass
 
 def clear_rubbish_files(pth):
     '''
@@ -68,11 +73,11 @@ out = open(script_output_results,"w")
 studentids=set()
 for file in filelist:
      delims = file.split("_")
-     studentids.add(delims[2])
+     studentids.add(delims[3])
 studentids = sorted(studentids)
 
 
-def test_compile(cmd,projdir, myexe="myexe"):
+def test_compile(cmd,projdir, myfle="myexe"):
     '''
     returns true if myexe exist after compiling
     :param cmd:
@@ -83,7 +88,7 @@ def test_compile(cmd,projdir, myexe="myexe"):
     run_cmd(cmd, projdir)
 
     # if myexe exists then they never moved the function
-    return os.path.exists(projdir + '/' + myexe)
+    return os.path.exists(projdir + '/' + myfle)
 
 
 for id in studentids:
@@ -98,33 +103,40 @@ for id in studentids:
     git_file = getfile(id,submission_filename)
     if git_file == None:
         #isn't there
-        print("Student " + id + " failed to include file")
+        print("Student " + id + " failed to include a submission file")
+        print("Total grade = 0")
         continue
 
     with open(git_file) as f:
         git_url = f.read()
 
+
     #clean it
     git_url = git_url.rstrip()
     git_url = git_url.split(' ')[-1]
+    git_url=''.join((s if s in string.printable else'') for s in git_url)
+    # git_url = str(filter(lambda x: x in string.printable, git_url))
 
     if git_url == None:
         # Aint there
-        print("Student " + id + " failed to include GIT URL in file")
+        print("OHNO! Student, failed to include GIT URL in file!")
+        print("Total grade = 0")
         continue
 
     #create student dir
     pth = make_student_dir(id,where_student_files_go)
 
-    # #clone directory
-    # cmd = "git clone " + git_url
-    # run_cmd(cmd,pth)
+    #clone directory
+    cmd = "git clone " + git_url
+    run_cmd(cmd,pth)
 
     # get the path of the project dir
     try:
         projdir = pth +"/"+ next(os.walk(pth))[1][0]
+        print("Downloading from "+ git_url)
     except IndexError:
-        print("OHNO " + str(id) + "Failed to download project from "+ git_url)
+        print("OHNO! Failed to download project from "+ git_url)
+        print("Total grade = 0")
         continue
 
     clear_rubbish_files(projdir)
@@ -138,8 +150,13 @@ for id in studentids:
         total -=20
 
     #run the exe
-    cmd = "./myexe"
-    run_cmd(cmd,projdir)
+
+    # () run a subshell, change to the correct directory, run command, exit subshell
+    cmd = "(cd " + projdir+ ";./myexe)"
+    stdout_value = subprocess.getoutput(cmd)
+    if( stdout_value.find("ello")==-1):
+        print("-10: does not print hello world")
+        total -= 10
 
     clear_rubbish_files(projdir)
 
@@ -149,64 +166,14 @@ for id in studentids:
         total -= 20
 
     #create at least one bogus file
-    run_cmd('touch bogus.o', projdir)
-    if (test_compile("make clean", projdir)):
-        print("-20: make clean does not work")
+    # run_cmd('touch bogus.o', projdir)
+    if ( not os.path.exists(projdir+"/myfunc.o")):
+        run_cmd('touch myfunc.o', projdir)
+    if (test_compile("make clean", projdir, myfle="myfunc.o")):
+        print("-20: make clean does not work correctly,did not remove all .o files")
         total -= 20
 
-
-
     print("Total grade ="+ str(total))
-
-
-    #
-    #
-    #
-    # #remove dispatcher.cpp and joblist.cpp
-    # cmds1 = "echo " + student_id + ";rm " + dir_prog + "utilities.cpp"
-    # cmds2 = "echo " + student_id + ";rm " + dir_prog + "results.txt"
-    #
-    # process = subprocess.Popen(cmds1, shell=True, stdout=out, stderr=out)
-    # process.wait()
-    # process = subprocess.Popen(cmds2, shell=True, stdout=out, stderr=out)
-    # process.wait()
-    #
-    # #copy in 2 files (dispatcher and joblist)
-    # cmds = "cp \"" + file_utilities +"\"  \"" + dir_prog + "utilities.cpp\""
-    # process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
-    # process.wait()
-    #
-    #
-    # #you can comment out the following lines, set a breakpoint on above process.wait
-    # # then step through this program to breakpoint
-    # # and then debug student code in eclipse
-    #
-    # #clean
-    # cmds = "cd " + dir_prog + ";cd ./Debug;make clean;"
-    # process = subprocess.Popen(cmds, shell=True, stdout=out,stderr=out)
-    # process.wait()
-    #
-    # # build
-    # cmds = "cd " + dir_prog + ";cd ./Debug;make;"
-    # process = subprocess.Popen(cmds, shell=True, stdout=out,stderr=out)
-    # process.wait()
-    #
-    #
-    # #run the exe
-    # cmds = "cd " + dir_prog + ";./Debug/Proj1_410_solution"
-    # process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
-    # process.wait()
-    #
-    # pass
-    #
-    # # try:
-    # #     # wanna see its output with 2 few params?
-    # #     # subprocess.check_output([self.cmd_file, self.data_file, passfile])
-    # #     print(subprocess.check_output([eclipse_exec]))
-    # # except subprocess.CalledProcessError as err:
-    # #     print("Problems...", "Utility returned:" + str(err.returncode) + " " + err.output)
-    # # else:
-    # #     print("No worries", "SUCCESS")
 
 
 out.close

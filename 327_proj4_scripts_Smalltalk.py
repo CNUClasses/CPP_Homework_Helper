@@ -5,14 +5,14 @@ import subprocess
 import sys
 
 # CHANGE THESE
-where_student_files_are_dir = "/home/keith/Desktop/327_projects/327proj5_smalltalk/s19nocompile/"
-DELIM_WITH_STUDENTID=3
+where_student_files_are_dir = "/home/keith/Desktop/student_projects/327_projects/327proj5_smalltalk/f19/s3/"
+DELIM_WITH_STUDENTID=4
 efis = 5  #expected number of files to see
-script_output_results = "327_project4_scripts_smalltalk_s19.txt"
+script_output_results = "327_project4_scripts_smalltalk_f19.txt"
 
 # where to copy all the student files
-eclipse_lib_dir= "/home/keith/git/327_Proj5_Lib/"
-eclipse_proj_dir= "/home/keith/git/327_Proj5/"
+eclipse_lib_dir= "/home/keith/git/327_proj_ST_lib/"
+eclipse_proj_dir= "/home/keith/git/327_proj_ST/"
 
 def clean_and_build():
     # clean
@@ -106,7 +106,7 @@ for file in filelist:
         clean_and_build()
 
         # run the process and capture its output
-        cmds = "cd " + eclipse_proj_dir + ";cd ./Debug; ./327_Proj5"
+        cmds = "cd " + eclipse_proj_dir + ";cd ./Debug; ./327_proj_ST"
         process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
         stdout, stderr = process.communicate(student_id)
         process.wait()

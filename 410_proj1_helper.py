@@ -10,8 +10,9 @@ dir_prog = "/home/keith/eclipse-workspace_MESSED_UP/Proj1_410_solution/"
 # dir_joblist = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/joblist/"
 # eclipse_project_dir = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/"
 # eclipse_exec = "/home/keith/eclipse-workspace/Proj2_410_queues_SOLUTION/Debug/Proj2_410_queues_SOLUTION"
-where_student_files_are_dir = "/home/keith/Desktop/410/proj1/s19/c2messedup/"
-script_output_results = "410F_Proj1.txt"
+where_student_files_are_dir = "/home/keith/Desktop/student_projects/410/proj1/19f/"
+where_student_files_are_dir = "/home/keith/Desktop/student_projects/410/proj1/19f/cannotreaddirections/"
+script_output_results = "410F_Proj1_f19_CRD.txt"
 
 filelist = glob(where_student_files_are_dir + "*.cpp")
 # filelist.sort()
@@ -29,7 +30,7 @@ out = open(script_output_results,"w")
 studentids=set()
 for file in filelist:
      delims = file.split("_")
-     studentids.add(delims[1])
+     studentids.add(delims[2])
 studentids = sorted(studentids)
 
 for id in studentids:

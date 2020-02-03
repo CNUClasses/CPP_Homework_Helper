@@ -7,9 +7,9 @@ import subprocess
 # the parent directory where I'm running the eclipse C++ project
 dir_cpp_files = "/home/keith/eclipse-workspace_MESSED_UP/410_project3_solution/src/"
 
-eclipse_project_dir = "/home/keith/workspace_MESSED_UP/410_project3_solution/"
-eclipse_exec = "/home/keith/workspace_MESSED_UP/410_project3_solution/Debug/410_project3_solution"
-where_student_files_are_dir = "/home/keith/Desktop/410/proj3/s19/s2/"
+eclipse_project_dir = "/home/keith/eclipse-workspace_MESSED_UP/410_project3_solution/"
+eclipse_exec = "/home/keith/eclipse-workspace_MESSED_UP/410_project3_solution/Debug/410_project3_solution"
+where_student_files_are_dir = "/home/keith/Desktop/student_projects/410/proj3/f19/"
 
 
 script_output_results = "410_proj3.txt"
@@ -32,7 +32,7 @@ out = open(script_output_results,"w")
 studentids=set()
 for file in filelist:
      delims = file.split("_")
-     studentids.add(delims[1])
+     studentids.add(delims[2])
 
 studentids = sorted(studentids)
 
@@ -49,11 +49,17 @@ for id in studentids:
 
     if(file_answers==None):
         file_answers = ""
+    elif (file_tester == None):
+        print("No tester.cpp")
+        continue
+    elif (file_print_ts == None):
+        print("No print_ts.cpp")
+        continue
 
     #remove tester.cpp and print_ts.cpp
     cmds1 = "echo " + student_id + ";rm " + dir_cpp_files + "tester.cpp"
     cmds2 = "echo " + student_id + ";rm " + dir_cpp_files + "print_ts.cpp"
-    cmds3 = "echo " + student_id + ";rm " + dir_cpp_files + "nswers.txt"
+    cmds3 = "echo " + student_id + ";rm " + dir_cpp_files + "answers.txt"
 
     process = subprocess.Popen(cmds1, shell=True, stdout=out, stderr=out)
     process.wait()
@@ -90,20 +96,10 @@ for id in studentids:
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     process.wait()
 
-    #run the exe
-    # cmds = "cd ..;./Debug/Proj2_410_queues_SOLUTION"
-    # process = subprocess.Popen(cmds, shell=True, stdout=out,stderr=out)
-    # process.wait()
-
-
-    # run plot_proceses.py to show resyults
     pass
-    # cmds = "cd " + eclipse_project_dir + ";cd ./plotProcesses;python plot_processes.py"
-    # process = subprocess_tut.Popen(cmds, shell=True, stdout=out, stderr=out)
-    # process.wait()
 
     #run the process and capture its output
-    cmds = "cd "+ eclipse_project_dir+ ";./Debug/410_project3_solution "
+    cmds = "cd "+ eclipse_project_dir+ ";./Debug/410_proj4_solution "
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     stdout,stderr = process.communicate(student_id)
     process.wait()

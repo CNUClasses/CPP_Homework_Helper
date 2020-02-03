@@ -25,13 +25,13 @@ cmd_line_params = " './data/testdata_full.txt' '<to1>' '</to1>' './output/outfil
 
 # CHANGE THESE FILES
 # where_student_files_are_dir = "/home/keith/Desktop/327_projects/327_proj4_stringParser/s19/"s19p270s
-where_student_files_are_dir = "/home/keith/Desktop/327_projects/327_proj4_stringParser/s19p270s/"
+where_student_files_are_dir = "/home/keith/Desktop/student_projects/327_projects/327_proj4_stringParser/f19/late/"
 
 # where_student_files_are_dir =   "/home/keith/Desktop/327_projects/327proj4/s18problems/"
-script_output_results = "./stdoutCf18-Proj4.txt"
+script_output_results = "./stdoutCf19-Proj4.txt"
 
 # script_output_results = "./stdoutCf18-Proj4.txt"
-DELIM_WITH_STUDENTID=4
+DELIM_WITH_STUDENTID=5
 # DELIM_WITH_STUDENTID=1
 tmpdir = os.path.join(where_student_files_are_dir,"*.cpp")
 filelist = glob(tmpdir )
@@ -105,9 +105,6 @@ for id in studentids:
         cmds = "cp \"" + file_327_proj3_test + "\"  \"" + eclipse_327_proj3_test + "327_proj3_test_student\""
         process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
         process.wait()
-
-
-
 
     #build the libraries first then the tester
     clean_and_build(eclipse_FileIO)

@@ -10,9 +10,9 @@ output_file = "/home/keith/eclipse-workspace_MESSED_UP/Proj3_Library_Vector_SOLU
 
 
 # CHANGE THESE FILES
-where_student_files_are_dir = "/home/keith/Desktop/327_projects/327proj3/s19/"
+where_student_files_are_dir = "/home/keith/Desktop/student_projects/327_projects/327proj3/f19/late/"
 script_output_results = "out_327_proj3_2.txt"
-DELIM_WITH_STUDENTID=2
+DELIM_WITH_STUDENTID=3
 
 tmpdir = os.path.join(where_student_files_are_dir,"*.cpp")
 filelist = glob(tmpdir )

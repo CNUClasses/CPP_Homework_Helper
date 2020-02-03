@@ -4,10 +4,10 @@ import os
 import subprocess
 
 # the parent directory where I'm running the eclipse C++ project
-eclipse_project_dir = "/home/keith/eclipse-workspace_MESSED_UP/Project2_Solution/src/"
-eclipse_exec = "/home/keith/eclipse-workspace_MESSED_UP/Project2_Solution/Debug/Project2_Solution.exe"
+eclipse_project_dir = "/home/keith/git/Project2_Solution/src/"
+eclipse_exec = "/home/keith/git/Project2_Solution/Debug/Project2_Solution.exe"
 
-where_student_files_are_dir =   "/home/keith/Desktop/327_projects/327proj2/s19/"
+where_student_files_are_dir =   "/home/keith/Desktop/student_projects/327_projects/327proj2/bogus/"
 # where_student_files_are_dir =   "/home/keith/Desktop/327_projects/327proj2/s18/c1/"
 
 script_output_results = "327_proj2_out.txt"
@@ -29,7 +29,7 @@ out = open(script_output_results,"w")
 studentids=set()
 for file in filelist:
      delims = file.split("_")
-     studentids.add(delims[2])
+     studentids.add(delims[3])
 studentids = sorted(studentids)
 
 for id in studentids:

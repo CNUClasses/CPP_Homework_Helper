@@ -7,7 +7,7 @@ import sys
 import logging
 
 # where the student files are
-where_student_files_are_dir = "/home/keith/Desktop/410/proj4/s19/s2/"
+where_student_files_are_dir = "/home/keith/Desktop/student_projects/410/proj4/f19/"
 # the parent directory where I'm running the eclipse C++ project
 eclipse_clean_dir = "/home/keith/eclipse-workspace_MESSED_UP/410_proj4_Solution/"
 
@@ -25,7 +25,7 @@ baker = "Baker.cpp"  # will not copy to a cpp file so not compileable
 waiter = "waiter.cpp"
 logger = "logger.cpp"
 
-DELIM_WITH_STUDENTID = 1
+DELIM_WITH_STUDENTID = 2
 
 # redirect output
 out = open(script_output_results, "w")
@@ -49,7 +49,10 @@ studentids = sorted(studentids)
 
 def clean_and_build(project_dir):
     global cmds, process
-    cmds = "cd " + project_dir + ";cd ./Debug;make clean;make;"
+    cmds = "cd " + project_dir + ";cd ./Debug;make clean;"
+    process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
+    process.wait()
+    cmds = "cd " + project_dir + ";cd ./Debug;make;"
     process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     process.wait()
 
@@ -90,10 +93,11 @@ for id in studentids:
     clean_and_build(proj)
 
     #run the process and capture its output
-    # cmds = "cd "+ proj+ ";./Debug/410_proj4_Solution "
+    # cmds = "cd "+ proj+ ";pwd;./Debug/410_proj4_Solution "
     # process = subprocess.Popen(cmds, shell=True, stdout=out, stderr=out)
     # stdout,stderr = process.communicate(student_id)
     # process.wait()
+
     pass
 
 out.close
